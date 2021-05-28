@@ -1,8 +1,8 @@
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import GlobalStyle from './utils/GlobalStyle';
 import HeroBackground from './components/HeroBackground';
 import Header from './components/Header';
-import MainFilmList from './components/MainFilmList';
+import PopularFilmList from './components/PopularFilmList';
 
 function App() {
   return (
@@ -10,7 +10,15 @@ function App() {
       <GlobalStyle />
       <HeroBackground>
         <Header />
-        <MainFilmList />
+        <Router>
+          <Switch>
+            <Route
+              exact
+              path={['/', '/home', '/popular']}
+              component={PopularFilmList}
+            />
+          </Switch>
+        </Router>
       </HeroBackground>
     </>
   );

@@ -8,12 +8,12 @@ const HeroBackground = ({ children }) => {
 export default HeroBackground;
 
 const Background = styled.div`
-  height: 100%;
+  min-height: 100vh;
   width: 100%;
   background-image: url(${HeroBG});
   background-repeat: no-repeat;
   background-position: center center;
   background-size: 100% 100%;
   background-attachment: fixed;
-  background-size: cover;
+  background-size: fill;
 `;

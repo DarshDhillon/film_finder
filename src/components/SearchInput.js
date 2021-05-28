@@ -15,7 +15,7 @@ const SearchInput = () => {
         ref={searchRef}
         type='text'
         autoComplete='off'
-        placeholder='Search for a film..'
+        placeholder='search here for a film..'
       />
     </SearchForm>
   );
@@ -35,15 +35,17 @@ const SearchBox = styled.input`
   width: 25%;
   text-align: center;
   font-size: 1.5rem;
-  background-color: #e7e1e1;
+  background-color: #fff;
   outline: none;
   border: none;
   color: #000;
+  cursor: pointer;
   border-radius: 0.5rem;
   /* font-weight: bold; */
 
   ::placeholder {
     font-weight: normal;
+    color: grey;
   }
 
   @media screen and (max-width: 1200px) {

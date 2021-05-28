@@ -19,13 +19,12 @@ export default Header;
 
 const HeaderContainer = styled.div`
   height: 15rem;
-  /* background-color: red; */
   display: flex;
   align-items: center;
   justify-content: space-around;
   flex-direction: column;
   padding: 2rem 0rem;
-  position: sticky;
+  /* position: sticky; */
   top: 0;
 `;
 
@@ -47,13 +46,14 @@ const Title = styled.h1`
   color: #b91313;
   font-size: 3rem;
   font-style: italic;
+  font-weight: bold;
 
   @media screen and (max-width: 768px) {
     font-size: 2.5rem;
   }
-  /* 
-  -webkit-text-stroke-width: 0.2px;
-  -webkit-text-stroke-color: #fff; */
+
+  /* -webkit-text-stroke-width: 0.1px;
+  -webkit-text-stroke-color: lightgrey; */
 `;
 
 const Logo = styled(GiFilmProjector)`
