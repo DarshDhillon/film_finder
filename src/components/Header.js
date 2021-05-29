@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import { GiFilmProjector } from 'react-icons/gi';
 import SearchInput from './SearchInput';
 
@@ -7,7 +8,9 @@ const Header = () => {
     <HeaderContainer>
       <HeaderWrapper>
         <Logo />
-        <Title>Film Finder</Title>
+        <HomeLink to='/'>
+          <Title>Film Finder</Title>
+        </HomeLink>
         <Logo $reverse />
       </HeaderWrapper>
       <SearchInput />
@@ -36,10 +39,15 @@ const HeaderWrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 0.5rem;
+  text-align: center;
 
   @media screen and (max-width: 768px) {
     width: 80%;
   }
+`;
+
+const HomeLink = styled(Link)`
+  text-decoration: none;
 `;
 
 const Title = styled.h1`
@@ -47,6 +55,7 @@ const Title = styled.h1`
   font-size: 3rem;
   font-style: italic;
   font-weight: bold;
+  /* text-decoration: none; */
 
   @media screen and (max-width: 768px) {
     font-size: 2.5rem;

@@ -1,21 +1,36 @@
 import styled from 'styled-components';
-import { useRef, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import useFetchSearchedFilm from '../hooks/useFetchSearchedFilm';
+import { useHistory } from 'react-router-dom';
 
 const SearchInput = () => {
-  const searchRef = useRef(null);
+  const history = useHistory();
+  const [fetchSearchedFilm] = useFetchSearchedFilm();
+  const [searchInput, setSearchInput] = useState('');
 
   useEffect(() => {
-    searchRef.current.focus();
-  }, []);
+    if (!searchInput) return;
+    fetchSearchedFilm(searchInput);
+    history.push('/search');
+  }, [searchInput]);
+
+  const handleChange = (e) => {
+    e.preventDefault();
+    setSearchInput(() => e.target.value);
+  };
+
+  console.log(searchInput);
 
   return (
     <SearchForm>
       <SearchBox
+        value={searchInput}
+        autoFocus
+        onChange={handleChange}
         spellCheck='false'
-        ref={searchRef}
         type='text'
         autoComplete='off'
-        placeholder='search here for a film..'
+        placeholder='search for a film..'
       />
     </SearchForm>
   );
@@ -53,6 +68,7 @@ const SearchBox = styled.input`
   }
 
   @media screen and (max-width: 768px) {
-    width: 70%;
+    width: 50%;
+    font-size: 1rem;
   }
 `;

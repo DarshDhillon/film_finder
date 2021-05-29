@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
-import popularFilmReducer from './popularFilmsSlice';
+import filmsReducer from './filmsSlice';
+import selectedFilmSliceReducer from './selectedFilmSlice';
 
 const store = configureStore({
   reducer: {
-    popularFilmReducer,
+    filmsReducer,
+    selectedFilmSliceReducer,
   },
 });
 
