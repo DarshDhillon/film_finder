@@ -1,23 +1,17 @@
-import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import useFetchFilms from '../hooks/useFetchFilms';
 import FilmCard from './FilmCard';
 
-const FilmList = () => {
-  const films = useSelector((state) => state.filmsReducer.films);
-
-  const [fetchFilms] = useFetchFilms();
-
-  useEffect(() => {
-    if (films.length === 0) fetchFilms();
-  }, []);
+const SearchedFilms = () => {
+  const searchedFilms = useSelector(
+    (state) => state.filmsReducer.searchedFilms
+  );
 
   return (
     <FilmsContainer>
       <FilmsWrapper>
-        {films.map((film) => (
+        {searchedFilms.map((film) => (
           <Link
             style={{ textDecoration: 'none' }}
             key={film.id}
@@ -31,7 +25,7 @@ const FilmList = () => {
   );
 };
 
-export default FilmList;
+export default SearchedFilms;
 
 const FilmsContainer = styled.div`
   /* height: 100vh; */

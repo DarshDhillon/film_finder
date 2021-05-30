@@ -4,14 +4,9 @@ import { useSelector } from 'react-redux';
 import useSelectedFilm from '../hooks/useFetchSelectedFilm';
 
 const SelectedFilm = () => {
-  const selectedFilm = useSelector(
-    (state) => state.selectedFilmSliceReducer.selectedFilm
-  );
-
-  console.log(`here's the other id: ${selectedFilm.id}`);
+  const selectedFilm = useSelector((state) => state.filmsReducer.selectedFilm);
 
   const { filmID } = useParams();
-  console.log(filmID);
 
   const [addSelectedFilm] = useSelectedFilm();
 

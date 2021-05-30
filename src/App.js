@@ -5,7 +5,7 @@ import Header from './components/Header';
 import FilmList from './components/FilmList';
 import FilmListSelector from './components/FilmListSelector';
 import SelectedFilm from './components/SelectedFilm';
-import Test from './components/Test';
+import SearchedFilms from './components/SearchedFilms';
 
 function App() {
   return (
@@ -16,13 +16,9 @@ function App() {
           <Header />
           <FilmListSelector />
           <Switch>
-            <Route
-              exact
-              path={['/', '/home', '/popular']}
-              component={FilmList}
-            />
+            <Route exact path={['/', '/popular']} component={FilmList} />
             <Route path='/film/:filmID' component={SelectedFilm} />
-            <Route path='/search' component={Test} />
+            <Route path='/search' component={SearchedFilms} />
           </Switch>
         </Router>
       </HeroBackground>

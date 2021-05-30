@@ -1,45 +1,43 @@
 import styled from 'styled-components';
 import useFetchFilms from '../hooks/useFetchFilms';
 import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const FilmListSelector = () => {
   const [fetchFilms] = useFetchFilms();
-  const history = useHistory();
 
   const filmType = useSelector((state) => state.filmsReducer.type);
-
-  console.log(filmType);
-
-  const handleSelectFilmType = (e) => {
-    fetchFilms(e.target.name);
-    history.push('/popular');
-  };
 
   return (
     <ButtonsContainer>
       <ButtonsWrapper>
-        <FilmsSelectButton
-          name='popular'
-          $type={filmType}
-          onClick={handleSelectFilmType}
-        >
-          Popular
-        </FilmsSelectButton>
-        <FilmsSelectButton
-          name='top_rated'
-          $type={filmType}
-          onClick={() => fetchFilms('top_rated')}
-        >
-          Top Rated
-        </FilmsSelectButton>
-        <FilmsSelectButton
-          name='upcoming'
-          $type={filmType}
-          onClick={() => fetchFilms('upcoming')}
-        >
-          Upcoming
-        </FilmsSelectButton>
+        <Link to='/'>
+          <FilmsSelectButton
+            name='popular'
+            $type={filmType}
+            onClick={(e) => fetchFilms(e.target.name)}
+          >
+            Popular
+          </FilmsSelectButton>
+        </Link>
+        <Link to='/'>
+          <FilmsSelectButton
+            name='top_rated'
+            $type={filmType}
+            onClick={(e) => fetchFilms(e.target.name)}
+          >
+            Top Rated
+          </FilmsSelectButton>
+        </Link>
+        <Link to='/'>
+          <FilmsSelectButton
+            name='upcoming'
+            $type={filmType}
+            onClick={(e) => fetchFilms(e.target.name)}
+          >
+            Upcoming
+          </FilmsSelectButton>
+        </Link>
       </ButtonsWrapper>
     </ButtonsContainer>
   );
@@ -54,7 +52,7 @@ const ButtonsContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 1rem 0;
+  padding: 2rem 0;
 `;
 
 const ButtonsWrapper = styled.div`
@@ -63,8 +61,9 @@ const ButtonsWrapper = styled.div`
   width: 50%;
   justify-content: space-between;
 
-  @media screen and (max-width: 1000px) {
+  @media screen and (max-width: 768px) {
     width: 80%;
+    justify-content: space-around;
   }
 `;
 
@@ -85,7 +84,7 @@ const FilmsSelectButton = styled.button`
   }
 
   @media screen and (max-width: 1200px) {
-    font-size: 0.8rem;
-    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
+    padding: 0.4rem 0.5rem;
   }
 `;

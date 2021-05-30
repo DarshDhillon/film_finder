@@ -1,37 +1,35 @@
 import styled from 'styled-components';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import useFetchSearchedFilm from '../hooks/useFetchSearchedFilm';
 import { useHistory } from 'react-router-dom';
+import { AiOutlineSearch } from 'react-icons/ai';
 
 const SearchInput = () => {
   const history = useHistory();
   const [fetchSearchedFilm] = useFetchSearchedFilm();
   const [searchInput, setSearchInput] = useState('');
 
-  useEffect(() => {
-    if (!searchInput) return;
+  const handleSubmit = (e) => {
+    e.preventDefault();
     fetchSearchedFilm(searchInput);
     history.push('/search');
-  }, [searchInput]);
-
-  const handleChange = (e) => {
-    e.preventDefault();
-    setSearchInput(() => e.target.value);
+    setSearchInput('');
   };
 
-  console.log(searchInput);
-
   return (
-    <SearchForm>
+    <SearchForm onSubmit={handleSubmit}>
       <SearchBox
         value={searchInput}
         autoFocus
-        onChange={handleChange}
+        onChange={(e) => setSearchInput(e.target.value)}
         spellCheck='false'
         type='text'
         autoComplete='off'
         placeholder='search for a film..'
       />
+      <SearchButton>
+        <SearchIcon $searchInput={searchInput} />
+      </SearchButton>
     </SearchForm>
   );
 };
@@ -53,10 +51,9 @@ const SearchBox = styled.input`
   background-color: #fff;
   outline: none;
   border: none;
-  color: #000;
-  cursor: pointer;
-  border-radius: 0.5rem;
-  /* font-weight: bold; */
+  color: #b91313;
+  border-radius: 0.5rem 0 0 0.5rem;
+  font-weight: bold;
 
   ::placeholder {
     font-weight: normal;
@@ -71,4 +68,19 @@ const SearchBox = styled.input`
     width: 50%;
     font-size: 1rem;
   }
+`;
+
+const SearchButton = styled.button`
+  background: #fff;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  border-radius: 0 0.5rem 0.5rem 0;
+`;
+
+const SearchIcon = styled(AiOutlineSearch)`
+  font-size: 1.5rem;
+  margin-right: 1rem;
+  transition: all 0.3s ease-in-out;
+  opacity: ${({ $searchInput }) => ($searchInput ? '1' : '0')};
 `;

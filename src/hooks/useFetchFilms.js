@@ -11,7 +11,7 @@ const useFetchFilms = () => {
     try {
       const { data } = await axios.get(
         `https://api.themoviedb.org/3/movie/${
-          searchTerm ? searchTerm : 'popular'
+          searchTerm ? searchTerm : 'now_playing'
         }?api_key=${API_KEY}&language=en-US&page=1&region=GB`
       );
       dispatch(addFilms({ filmList: data.results, type: searchTerm }));
