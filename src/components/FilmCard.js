@@ -6,7 +6,6 @@ const changeDateOrder = (date) => {
 };
 
 const FilmCard = ({ film }) => {
-  console.log(film);
   return (
     <FilmCardContainer>
       <FilmCardPosterImage
@@ -23,7 +22,6 @@ const FilmCard = ({ film }) => {
     </FilmCardContainer>
   );
 };
-// moment().format("MMM Do YY");
 export default FilmCard;
 
 const FilmCardContainer = styled.div`
@@ -52,8 +50,8 @@ const FilmInfoContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 1rem;
-  justify-content: space-around;
+  padding: 0.5rem 1rem;
+  justify-content: space-between;
 `;
 
 const FilmTitle = styled.h4`
@@ -67,10 +65,18 @@ const FilmReleaseDate = styled.h4`
   text-align: center;
 `;
 
-const FilmVoteAverage = styled.h4`
-  color: orange;
+const FilmVoteAverage = styled.p`
+  display: block;
+  height: 40px;
+  width: 40px;
+  line-height: 35px;
+
+  -moz-border-radius: 30px;
+  border-radius: 30px;
+
+  background-color: transparent;
+  border: 2px solid orange;
+  color: white;
   text-align: center;
-  border-radius: 50%;
-  border: 1px solid #fff;
-  padding: 0.5rem;
+  font-size: 1rem;
 `;

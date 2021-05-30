@@ -68,7 +68,7 @@ const ButtonsWrapper = styled.div`
 `;
 
 const FilmsSelectButton = styled.button`
-  padding: 0.8rem 1.5rem;
+  padding: 0.5rem 1.5rem;
   background-color: ${({ $type, name }) =>
     $type === name ? '#b91313' : '#416b41'};
   color: #fff;

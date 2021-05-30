@@ -11,8 +11,8 @@ function App() {
   return (
     <>
       <GlobalStyle />
-      <HeroBackground>
-        <Router>
+      <Router>
+        <HeroBackground>
           <Header />
           <FilmListSelector />
           <Switch>
@@ -20,8 +20,8 @@ function App() {
             <Route path='/film/:filmID' component={SelectedFilm} />
             <Route path='/search' component={SearchedFilms} />
           </Switch>
-        </Router>
-      </HeroBackground>
+        </HeroBackground>
+      </Router>
     </>
   );
 }
