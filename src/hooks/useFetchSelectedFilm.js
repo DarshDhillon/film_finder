@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import { addSelectedFilm, setLoading } from '../state/filmsSlice';
+import { addSelectedFilm } from '../state/filmsSlice';
 
 const API_KEY = process.env.REACT_APP_THE_MOVIE_DB_API_KEY;
 
@@ -8,7 +8,6 @@ const useFetchSelectedFilm = () => {
   const dispatch = useDispatch();
 
   const fetchSelectedFilm = (filmID) => {
-    dispatch(setLoading(true));
     const film = `https://api.themoviedb.org/3/movie/${filmID}?api_key=${API_KEY}&language=en-US&page=1&region=GB`;
     const filmActors = `https://api.themoviedb.org/3/movie/${filmID}/credits?api_key=${API_KEY}`;
     const filmImages = `https://api.themoviedb.org/3/movie/${filmID}/images?api_key=${API_KEY}`;
@@ -36,8 +35,7 @@ const useFetchSelectedFilm = () => {
       )
       .catch((errors) => {
         console.log(errors);
-      })
-      .finally(dispatch(setLoading(false)));
+      });
   };
 
   return [fetchSelectedFilm];

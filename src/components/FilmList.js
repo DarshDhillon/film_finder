@@ -14,6 +14,8 @@ const FilmList = () => {
     if (films.length === 0) fetchFilms('now_playing');
   }, []);
 
+  console.log('renderd - film list');
+
   return (
     <FilmsContainer>
       <FilmsWrapper>

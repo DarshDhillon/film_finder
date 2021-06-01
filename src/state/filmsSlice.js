@@ -3,7 +3,6 @@ import { createSlice } from '@reduxjs/toolkit';
 const filmsSlice = createSlice({
   name: 'fetched film(s)',
   initialState: {
-    isLoading: false,
     films: [],
     searchedFilms: [],
     type: '',
@@ -15,9 +14,6 @@ const filmsSlice = createSlice({
     },
   },
   reducers: {
-    setLoading: (state, { payload }) => {
-      state.isLoading = payload;
-    },
     addFilms: (state, { payload }) => {
       state.type = payload.type;
       state.films = payload.filmList;
@@ -37,7 +33,7 @@ const filmsSlice = createSlice({
   },
 });
 
-export const { addFilms, addSearchedFilms, addSelectedFilm, setLoading } =
+export const { addFilms, addSearchedFilms, addSelectedFilm } =
   filmsSlice.actions;
 
 export default filmsSlice.reducer;

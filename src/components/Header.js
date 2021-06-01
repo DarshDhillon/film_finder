@@ -52,7 +52,7 @@ const HomeLink = styled(Link)`
 
 const Title = styled.h1`
   color: #b91313;
-  font-size: 3rem;
+  font-size: 4rem;
   font-style: italic;
   font-weight: bold;
   /* text-decoration: none; */
