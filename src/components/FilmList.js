@@ -11,7 +11,7 @@ const FilmList = () => {
   const [fetchFilms] = useFetchFilms();
 
   useEffect(() => {
-    if (films.length === 0) fetchFilms();
+    if (films.length === 0) fetchFilms('now_playing');
   }, []);
 
   return (

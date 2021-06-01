@@ -1,7 +1,8 @@
 import styled from 'styled-components';
+import NoImageAvailable from '../assets/images/no_image.png';
 
 const changeDateOrder = (date) => {
-  let newDateOrder = date.split(/\s*\-\s*/g);
+  let newDateOrder = date.split(/\s*-\s*/g);
   return `${newDateOrder[2]}-${newDateOrder[1]}-${newDateOrder[0]}`;
 };
 
@@ -10,7 +11,11 @@ const FilmCard = ({ film }) => {
     <FilmCardContainer>
       <FilmCardPosterImage
         alt={film.title}
-        src={`https://image.tmdb.org/t/p/original/${film.poster_path}`}
+        src={
+          !film.poster_path
+            ? NoImageAvailable
+            : `https://image.tmdb.org/t/p/original/${film.poster_path}`
+        }
       />
       <FilmInfoContainer>
         <FilmTitle>{film.title}</FilmTitle>

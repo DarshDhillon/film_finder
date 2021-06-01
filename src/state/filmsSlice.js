@@ -3,27 +3,41 @@ import { createSlice } from '@reduxjs/toolkit';
 const filmsSlice = createSlice({
   name: 'fetched film(s)',
   initialState: {
+    isLoading: false,
     films: [],
     searchedFilms: [],
-    selectedFilm: {},
     type: '',
+    selectedFilmData: {
+      selectedFilm: {},
+      selectedFilmActors: [],
+      selectedFilmImages: [],
+      selectedFilmRecommendations: [],
+    },
   },
   reducers: {
+    setLoading: (state, { payload }) => {
+      state.isLoading = payload;
+    },
     addFilms: (state, { payload }) => {
-      state.films = payload.filmList;
       state.type = payload.type;
+      state.films = payload.filmList;
     },
     addSearchedFilms: (state, { payload }) => {
-      state.searchedFilms = payload.filmList;
       state.type = payload.type;
+      state.searchedFilms = payload.filmList;
     },
     addSelectedFilm: (state, { payload }) => {
-      state.selectedFilm = payload;
+      state.type = payload.type;
+      state.selectedFilmData.selectedFilm = payload.selectedFilm;
+      state.selectedFilmData.selectedFilmActors = payload.selectedFilmActors;
+      state.selectedFilmData.selectedFilmImages = payload.selectedFilmImages;
+      state.selectedFilmData.selectedFilmRecommendations =
+        payload.selectedFilmRecommendations;
     },
   },
 });
 
-export const { addFilms, addSelectedFilm, addSearchedFilms } =
+export const { addFilms, addSearchedFilms, addSelectedFilm, setLoading } =
   filmsSlice.actions;
 
 export default filmsSlice.reducer;

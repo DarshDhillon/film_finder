@@ -9,20 +9,18 @@ import SearchedFilms from './components/SearchedFilms';
 
 function App() {
   return (
-    <>
+    <Router>
       <GlobalStyle />
-      <Router>
-        <HeroBackground>
-          <Header />
-          <FilmListSelector />
-          <Switch>
-            <Route exact path={['/', '/popular']} component={FilmList} />
-            <Route path='/film/:filmID' component={SelectedFilm} />
-            <Route path='/search' component={SearchedFilms} />
-          </Switch>
-        </HeroBackground>
-      </Router>
-    </>
+      <HeroBackground>
+        <Header />
+        <FilmListSelector />
+        <Switch>
+          <Route exact path={['/', '/popular']} component={FilmList} />
+          <Route path='/search' component={SearchedFilms} />
+          <Route path='/film/:filmID' component={SelectedFilm} />
+        </Switch>
+      </HeroBackground>
+    </Router>
   );
 }
 
