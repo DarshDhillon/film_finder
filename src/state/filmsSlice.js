@@ -87,7 +87,7 @@ const filmsSlice = createSlice({
       state.selectedFilmData.isLoading = true;
     },
     [getFilmDataAsync.fulfilled]: (state, { payload }) => {
-      state.type = '';
+      state.type = 'selected';
       state.selectedFilmData.selectedFilm = payload.filmRes;
       state.selectedFilmData.selectedFilmActors = payload.filmActorsRes;
       state.selectedFilmData.selectedFilmImages = payload.filmImagesRes;

@@ -21,6 +21,12 @@ const Header = () => {
 export default Header;
 
 const HeaderContainer = styled.div`
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0),
+    rgba(0, 0, 0, 0.7),
+    rgba(0, 0, 0, 0)
+  );
   height: 15rem;
   display: flex;
   align-items: center;
@@ -33,13 +39,13 @@ const HeaderContainer = styled.div`
 
 const HeaderWrapper = styled.div`
   height: 40%;
-  /* background-color: blue; */
   width: 600px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0.5rem;
   text-align: center;
+  border-radius: 0.5rem;
 
   @media screen and (max-width: 768px) {
     width: 80%;

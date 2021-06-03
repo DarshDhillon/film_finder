@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { getFilmDataAsync, clearSelectedFilm } from '../state/filmsSlice';
-import LoadingSpinner from '../assets/images/loading_spinner2.gif';
+import LoadingSpinner from '../assets/images/spinner_red.gif';
 import { AiOutlineCalendar } from 'react-icons/ai';
 import { AiOutlineClockCircle } from 'react-icons/ai';
 import { FaRegMoneyBillAlt } from 'react-icons/fa';
@@ -16,6 +16,8 @@ const SelectedFilm = () => {
   const selectedFilmData = useSelector(
     (state) => state.filmsReducer.selectedFilmData
   );
+
+  console.log(selectedFilmData);
 
   const isLoading = useSelector(
     (state) => state.filmsReducer.selectedFilmData.isLoading
