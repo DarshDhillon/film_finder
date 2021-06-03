@@ -1,11 +1,10 @@
 import styled from 'styled-components';
-import useFetchFilms from '../hooks/useFetchFilms';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { getFilmsAsync } from '../state/filmsSlice';
 
 const FilmListSelector = () => {
-  const [fetchFilms] = useFetchFilms();
-
+  const dispatch = useDispatch();
   const filmType = useSelector((state) => state.filmsReducer.type);
 
   return (
@@ -15,7 +14,7 @@ const FilmListSelector = () => {
           <FilmsSelectButton
             name='popular'
             $type={filmType}
-            onClick={(e) => fetchFilms(e.target.name)}
+            onClick={(e) => dispatch(getFilmsAsync(e.target.name))}
           >
             Popular
           </FilmsSelectButton>
@@ -24,7 +23,7 @@ const FilmListSelector = () => {
           <FilmsSelectButton
             name='top_rated'
             $type={filmType}
-            onClick={(e) => fetchFilms(e.target.name)}
+            onClick={(e) => dispatch(getFilmsAsync(e.target.name))}
           >
             Top Rated
           </FilmsSelectButton>
@@ -33,7 +32,7 @@ const FilmListSelector = () => {
           <FilmsSelectButton
             name='upcoming'
             $type={filmType}
-            onClick={(e) => fetchFilms(e.target.name)}
+            onClick={(e) => dispatch(getFilmsAsync(e.target.name))}
           >
             Upcoming
           </FilmsSelectButton>

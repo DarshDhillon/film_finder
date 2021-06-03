@@ -1,17 +1,18 @@
 import styled from 'styled-components';
 import { useState } from 'react';
-import useFetchSearchedFilm from '../hooks/useFetchSearchedFilm';
 import { useHistory } from 'react-router-dom';
 import { AiOutlineSearch } from 'react-icons/ai';
+import { getSearchedFilmsAsync } from '../state/filmsSlice';
+import { useDispatch } from 'react-redux';
 
 const SearchInput = () => {
+  const dispatch = useDispatch();
   const history = useHistory();
-  const [fetchSearchedFilm] = useFetchSearchedFilm();
   const [searchInput, setSearchInput] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetchSearchedFilm(searchInput);
+    dispatch(getSearchedFilmsAsync(searchInput));
     history.push('/search');
     setSearchInput('');
   };

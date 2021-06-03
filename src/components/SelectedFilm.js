@@ -1,20 +1,24 @@
 import styled from 'styled-components';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import useSelectedFilm from '../hooks/useFetchSelectedFilm';
+import { useSelector, useDispatch } from 'react-redux';
+import { getFilmDataAsync, clearSelectedFilm } from '../state/filmsSlice';
 import LoadingSpinner from '../assets/images/loading_spinner2.gif';
 import { AiOutlineCalendar } from 'react-icons/ai';
 import { AiOutlineClockCircle } from 'react-icons/ai';
 import { FaRegMoneyBillAlt } from 'react-icons/fa';
+import SelectedFilmActors from './SelectedFilmActors';
 
 const SelectedFilm = () => {
   const { filmID } = useParams();
-  const [fetchSelectedFilm] = useSelectedFilm();
-  const [isLoading, setIsLoading] = useState(true);
+  const dispatch = useDispatch();
 
   const selectedFilmData = useSelector(
     (state) => state.filmsReducer.selectedFilmData
+  );
+
+  const isLoading = useSelector(
+    (state) => state.filmsReducer.selectedFilmData.isLoading
   );
 
   const changeDateOrder = (date) => {
@@ -22,20 +26,16 @@ const SelectedFilm = () => {
     return `${newDateOrder[2]}-${newDateOrder[1]}-${newDateOrder[0]}`;
   };
 
-  setTimeout(() => {
-    setIsLoading(false);
-  }, 500);
-
   useEffect(() => {
-    fetchSelectedFilm(filmID);
-  }, []);
+    dispatch(getFilmDataAsync(filmID));
 
-  console.log(selectedFilmData.selectedFilm);
+    return () => dispatch(clearSelectedFilm());
+  }, []);
 
   return (
     <>
       {isLoading ? (
-        <Spinner alt='timer' src={LoadingSpinner} />
+        <Spinner alt='spinner' src={LoadingSpinner} />
       ) : (
         <FilmContainer>
           <FilmWrapper>
@@ -60,9 +60,10 @@ const SelectedFilm = () => {
                   <DateWrapper>
                     <CalendarIcon />
                     <FilmReleaseDate>
-                      {changeDateOrder(
-                        selectedFilmData.selectedFilm.release_date
-                      )}
+                      {selectedFilmData.selectedFilm.release_date &&
+                        changeDateOrder(
+                          selectedFilmData.selectedFilm.release_date
+                        )}
                     </FilmReleaseDate>
                   </DateWrapper>
                   <RuntimeWrapper>
@@ -80,6 +81,7 @@ const SelectedFilm = () => {
                 </FilmFootnotes>
               </FilmInfo>
             </FilmInfoContainer>
+            <SelectedFilmActors />
           </FilmWrapper>
         </FilmContainer>
       )}
@@ -140,7 +142,7 @@ const FilmInfo = styled.div`
   align-items: center;
   /* width: 100%; */
 
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 1200px) {
     text-align: center;
     margin-bottom: 1rem;
   }
@@ -148,12 +150,17 @@ const FilmInfo = styled.div`
 
 const FilmTitle = styled.h1`
   color: yellow;
+
+  @media screen and (max-width: 1200px) {
+    margin-bottom: 1rem;
+  }
 `;
 
 const FilmTagline = styled.h2`
   color: #fff;
+  font-style: italic;
 
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 1200px) {
     font-size: 0.9rem;
     margin-bottom: 1rem;
   }
@@ -177,7 +184,11 @@ const FilmGenreWrapper = styled.div`
   width: 80%;
   padding: 0.5rem;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
+
+  @media screen and (max-width: 600px) {
+    width: 100%;
+  }
 `;
 
 const FilmGenre = styled.h3`
@@ -186,7 +197,7 @@ const FilmGenre = styled.h3`
   color: #fff;
   background-color: #8b2020;
 
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 1200px) {
     font-size: 0.7rem;
     margin-bottom: 1rem;
   }

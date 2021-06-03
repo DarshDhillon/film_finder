@@ -1,12 +1,68 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+
+const API_KEY = process.env.REACT_APP_THE_MOVIE_DB_API_KEY;
+
+export const getFilmDataAsync = createAsyncThunk(
+  'films/getFilmDataAsync',
+  async (filmID) => {
+    const film = `https://api.themoviedb.org/3/movie/${filmID}?api_key=${API_KEY}&language=en-US&page=1&region=GB`;
+    const filmActors = `https://api.themoviedb.org/3/movie/${filmID}/credits?api_key=${API_KEY}`;
+    const filmImages = `https://api.themoviedb.org/3/movie/${filmID}/images?api_key=${API_KEY}`;
+    const filmRecommendations = `https://api.themoviedb.org/3/movie/${filmID}/recommendations?api_key=${API_KEY}`;
+
+    const res1 = await fetch(film);
+    const res2 = await fetch(filmActors);
+    const res3 = await fetch(filmImages);
+    const res4 = await fetch(filmRecommendations);
+
+    const filmRes = await res1.json();
+    const filmActorsRes = await res2.json();
+    const filmImagesRes = await res3.json();
+    const filmRecommendationsRes = await res4.json();
+
+    return { filmRes, filmActorsRes, filmImagesRes, filmRecommendationsRes };
+  }
+);
+
+export const getSearchedFilmsAsync = createAsyncThunk(
+  'films/getSearchedFilmsAsync',
+  async (searchQuery) => {
+    const fetchedSearchFilms = await fetch(
+      `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${searchQuery}`
+    );
+
+    const searchedFilms = await fetchedSearchFilms.json();
+
+    return { searchedFilms, type: searchQuery };
+  }
+);
+
+export const getFilmsAsync = createAsyncThunk(
+  'films/getFilmsAsync',
+  async (searchTerm) => {
+    const fetchedFilmsByType = await fetch(
+      `https://api.themoviedb.org/3/movie/${searchTerm}?api_key=${API_KEY}&language=en-US&page=1&region=GB`
+    );
+
+    const filmsByType = await fetchedFilmsByType.json();
+    // console.log(filmsByType);
+
+    return { filmsByType, type: searchTerm };
+  }
+);
 
 const filmsSlice = createSlice({
-  name: 'fetched film(s)',
+  name: 'films',
   initialState: {
-    films: [],
-    searchedFilms: [],
     type: '',
+    isLoading: true,
+    films: [],
+    searchedFilmsData: {
+      isLoading: true,
+      films: [],
+    },
     selectedFilmData: {
+      isLoading: true,
       selectedFilm: {},
       selectedFilmActors: [],
       selectedFilmImages: [],
@@ -14,26 +70,44 @@ const filmsSlice = createSlice({
     },
   },
   reducers: {
-    addFilms: (state, { payload }) => {
-      state.type = payload.type;
-      state.films = payload.filmList;
+    clearSelectedFilm: (state) => {
+      state.selectedFilmData = {
+        isLoading: true,
+        selectedFilm: {},
+        selectedFilmActors: [],
+        selectedFilmImages: [],
+        selectedFilmRecommendations: [],
+      };
     },
-    addSearchedFilms: (state, { payload }) => {
-      state.type = payload.type;
-      state.searchedFilms = payload.filmList;
+    setIsLoading: (state) => {
+      state.isLoading = true;
     },
-    addSelectedFilm: (state, { payload }) => {
-      state.type = payload.type;
-      state.selectedFilmData.selectedFilm = payload.selectedFilm;
-      state.selectedFilmData.selectedFilmActors = payload.selectedFilmActors;
-      state.selectedFilmData.selectedFilmImages = payload.selectedFilmImages;
+  },
+  extraReducers: {
+    [getFilmDataAsync.fulfilled]: (state, { payload }) => {
+      state.type = '';
+      state.selectedFilmData.selectedFilm = payload.filmRes;
+      state.selectedFilmData.selectedFilmActors = payload.filmActorsRes;
+      state.selectedFilmData.selectedFilmImages = payload.filmImagesRes;
       state.selectedFilmData.selectedFilmRecommendations =
-        payload.selectedFilmRecommendations;
+        payload.filmRecommendationsRes;
+      state.selectedFilmData.isLoading = false;
+    },
+
+    [getSearchedFilmsAsync.fulfilled]: (state, { payload }) => {
+      state.type = payload.type;
+      state.searchedFilmsData.films = payload.searchedFilms.results;
+      state.searchedFilmsData.isLoading = false;
+    },
+
+    [getFilmsAsync.fulfilled]: (state, { payload }) => {
+      state.type = payload.type;
+      state.films = payload.filmsByType.results;
+      state.isLoading = false;
     },
   },
 });
 
-export const { addFilms, addSearchedFilms, addSelectedFilm } =
-  filmsSlice.actions;
+export const { clearSelectedFilm, setIsLoading } = filmsSlice.actions;
 
 export default filmsSlice.reducer;

@@ -20,7 +20,8 @@ const FilmCard = ({ film }) => {
       <FilmInfoContainer>
         <FilmTitle>{film.title}</FilmTitle>
         <FilmReleaseDate>
-          Release date: {changeDateOrder(film.release_date)}
+          Release date:{' '}
+          {film.release_date && changeDateOrder(film.release_date)}
         </FilmReleaseDate>
         <FilmVoteAverage>{film.vote_average}</FilmVoteAverage>
       </FilmInfoContainer>

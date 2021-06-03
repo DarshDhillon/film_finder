@@ -1,34 +1,37 @@
 import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import useFetchFilms from '../hooks/useFetchFilms';
 import FilmCard from './FilmCard';
+import { getFilmsAsync } from '../state/filmsSlice';
+import LoadingSpinner from '../assets/images/loading_spinner2.gif';
 
 const FilmList = () => {
+  const dispatch = useDispatch();
   const films = useSelector((state) => state.filmsReducer.films);
-
-  const [fetchFilms] = useFetchFilms();
+  const isLoading = useSelector((state) => state.filmsReducer.isLoading);
 
   useEffect(() => {
-    if (films.length === 0) fetchFilms('now_playing');
+    if (films.length === 0) dispatch(getFilmsAsync('now_playing'));
   }, []);
-
-  console.log('renderd - film list');
 
   return (
     <FilmsContainer>
-      <FilmsWrapper>
-        {films.map((film) => (
-          <Link
-            style={{ textDecoration: 'none' }}
-            key={film.id}
-            to={`/film/${film.id}`}
-          >
-            <FilmCard film={film} />
-          </Link>
-        ))}
-      </FilmsWrapper>
+      {isLoading ? (
+        <Spinner alt='spinner' src={LoadingSpinner} />
+      ) : (
+        <FilmsWrapper>
+          {films.map((film) => (
+            <Link
+              style={{ textDecoration: 'none' }}
+              key={film.id}
+              to={`/film/${film.id}`}
+            >
+              <FilmCard film={film} />
+            </Link>
+          ))}
+        </FilmsWrapper>
+      )}
     </FilmsContainer>
   );
 };
@@ -54,4 +57,16 @@ const FilmsWrapper = styled.div`
   /* @media screen and (max-width: 1200px) {
     width: 80%;
   } */
+`;
+
+const Spinner = styled.img`
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -70%);
+  border-radius: 1rem;
+
+  @media screen and (max-width: 600px) {
+    width: 150px;
+  }
 `;

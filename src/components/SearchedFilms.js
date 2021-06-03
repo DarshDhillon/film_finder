@@ -2,25 +2,33 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import FilmCard from './FilmCard';
+import LoadingSpinner from '../assets/images/loading_spinner2.gif';
 
 const SearchedFilms = () => {
   const searchedFilms = useSelector(
-    (state) => state.filmsReducer.searchedFilms
+    (state) => state.filmsReducer.searchedFilmsData.films
+  );
+  const isLoading = useSelector(
+    (state) => state.filmsReducer.searchedFilmsData.isLoading
   );
 
   return (
     <FilmsContainer>
-      <FilmsWrapper>
-        {searchedFilms.map((film) => (
-          <Link
-            style={{ textDecoration: 'none' }}
-            key={film.id}
-            to={`/film/${film.id}`}
-          >
-            <FilmCard film={film} />
-          </Link>
-        ))}
-      </FilmsWrapper>
+      {isLoading ? (
+        <Spinner alt='spinner' src={LoadingSpinner} />
+      ) : (
+        <FilmsWrapper>
+          {searchedFilms.map((film) => (
+            <Link
+              style={{ textDecoration: 'none' }}
+              key={film.id}
+              to={`/film/${film.id}`}
+            >
+              <FilmCard film={film} />
+            </Link>
+          ))}
+        </FilmsWrapper>
+      )}
     </FilmsContainer>
   );
 };
@@ -46,4 +54,16 @@ const FilmsWrapper = styled.div`
   /* @media screen and (max-width: 1200px) {
     width: 80%;
   } */
+`;
+
+const Spinner = styled.img`
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -70%);
+  border-radius: 1rem;
+
+  @media screen and (max-width: 600px) {
+    width: 150px;
+  }
 `;
