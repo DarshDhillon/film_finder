@@ -37,15 +37,14 @@ export const getSearchedFilmsAsync = createAsyncThunk(
   }
 );
 
-export const getFilmsAsync = createAsyncThunk(
-  'films/getFilmsAsync',
+export const getFilmsByTypeAsync = createAsyncThunk(
+  'films/getFilmsByTypeAsync',
   async (searchTerm) => {
     const fetchedFilmsByType = await fetch(
       `https://api.themoviedb.org/3/movie/${searchTerm}?api_key=${API_KEY}&language=en-US&page=1&region=GB`
     );
 
     const filmsByType = await fetchedFilmsByType.json();
-    // console.log(filmsByType);
 
     return { filmsByType, type: searchTerm };
   }
@@ -84,6 +83,9 @@ const filmsSlice = createSlice({
     },
   },
   extraReducers: {
+    [getFilmDataAsync.pending]: (state) => {
+      state.selectedFilmData.isLoading = true;
+    },
     [getFilmDataAsync.fulfilled]: (state, { payload }) => {
       state.type = '';
       state.selectedFilmData.selectedFilm = payload.filmRes;
@@ -93,14 +95,18 @@ const filmsSlice = createSlice({
         payload.filmRecommendationsRes;
       state.selectedFilmData.isLoading = false;
     },
-
+    [getSearchedFilmsAsync.pending]: (state) => {
+      state.searchedFilmsData.isLoading = true;
+    },
     [getSearchedFilmsAsync.fulfilled]: (state, { payload }) => {
       state.type = payload.type;
       state.searchedFilmsData.films = payload.searchedFilms.results;
       state.searchedFilmsData.isLoading = false;
     },
-
-    [getFilmsAsync.fulfilled]: (state, { payload }) => {
+    [getFilmsByTypeAsync.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [getFilmsByTypeAsync.fulfilled]: (state, { payload }) => {
       state.type = payload.type;
       state.films = payload.filmsByType.results;
       state.isLoading = false;

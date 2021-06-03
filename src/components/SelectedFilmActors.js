@@ -7,26 +7,24 @@ const SelectedFilmActors = () => {
     (state) => state.filmsReducer.selectedFilmData.selectedFilmActors.cast
   );
 
-  // console.log(filmActors);
+  console.log(filmActors);
 
   return (
     <FilmActorsContainer>
       <FilmActorsWrapper>
         {filmActors.slice(0, 20).map((actor) => (
-          <FilmActorCard>
-            <>
-              <FilmActorImage
-                key={actor.id}
-                alt={actor.name}
-                src={
-                  !actor.profile_path
-                    ? NoImageAvailable
-                    : `https://image.tmdb.org/t/p/original/${actor.profile_path}`
-                }
-              />
-              <FilmActorName>{actor.name}</FilmActorName>
-              <FilmActorCharacterName>{actor.character}</FilmActorCharacterName>
-            </>
+          <FilmActorCard key={actor.id}>
+            <FilmActorImage
+              key={actor.id}
+              alt={actor.name}
+              src={
+                !actor.profile_path
+                  ? NoImageAvailable
+                  : `https://image.tmdb.org/t/p/original/${actor.profile_path}`
+              }
+            />
+            <FilmActorName>{actor.name}</FilmActorName>
+            <FilmActorCharacterName>{actor.character}</FilmActorCharacterName>
           </FilmActorCard>
         ))}
       </FilmActorsWrapper>

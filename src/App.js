@@ -16,7 +16,7 @@ function App() {
         <FilmListSelector />
         <Switch>
           <Route exact path={['/', '/popular']} component={FilmList} />
-          <Route path='/search' component={SearchedFilms} />
+          <Route path='/search/:searchTerm' component={SearchedFilms} />
           <Route path='/film/:filmID' component={SelectedFilm} />
         </Switch>
       </HeroBackground>

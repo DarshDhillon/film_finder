@@ -13,7 +13,7 @@ const SearchInput = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(getSearchedFilmsAsync(searchInput));
-    history.push('/search');
+    history.push(`/search/${searchInput}`);
     setSearchInput('');
   };
 

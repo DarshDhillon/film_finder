@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import FilmCard from './FilmCard';
-import { getFilmsAsync } from '../state/filmsSlice';
+import { getFilmsByTypeAsync } from '../state/filmsSlice';
 import LoadingSpinner from '../assets/images/loading_spinner2.gif';
 
 const FilmList = () => {
@@ -12,7 +12,7 @@ const FilmList = () => {
   const isLoading = useSelector((state) => state.filmsReducer.isLoading);
 
   useEffect(() => {
-    if (films.length === 0) dispatch(getFilmsAsync('now_playing'));
+    if (films.length === 0) dispatch(getFilmsByTypeAsync('now_playing'));
   }, []);
 
   return (
