@@ -12,7 +12,7 @@ const FilmList = () => {
   const isLoading = useSelector((state) => state.filmsReducer.isLoading);
 
   useEffect(() => {
-    if (films.length === 0) dispatch(getFilmsByTypeAsync('now_playing'));
+    films.length === 0 && dispatch(getFilmsByTypeAsync('now_playing'));
   }, []);
 
   return (

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import FilmCard from './FilmCard';
 import LoadingSpinner from '../assets/images/loading_spinner2.gif';
+import NoResultsFoundVideo from '../assets/videos/NoResultsFound.mp4';
 
 const SearchedFilms = () => {
   const searchedFilms = useSelector(
@@ -18,15 +19,24 @@ const SearchedFilms = () => {
         <Spinner alt='spinner' src={LoadingSpinner} />
       ) : (
         <FilmsWrapper>
-          {searchedFilms.map((film) => (
-            <Link
-              style={{ textDecoration: 'none' }}
-              key={film.id}
-              to={`/film/${film.id}`}
-            >
-              <FilmCard film={film} />
-            </Link>
-          ))}
+          {searchedFilms.length === 0 ? (
+            <VideoWrapper>
+              <NoResultsVideo
+                autoPlay
+                src={NoResultsFoundVideo}
+              ></NoResultsVideo>
+            </VideoWrapper>
+          ) : (
+            searchedFilms.map((film) => (
+              <Link
+                style={{ textDecoration: 'none' }}
+                key={film.id}
+                to={`/film/${film.id}`}
+              >
+                <FilmCard film={film} />
+              </Link>
+            ))
+          )}
         </FilmsWrapper>
       )}
     </FilmsContainer>
@@ -66,4 +76,15 @@ const Spinner = styled.img`
   @media screen and (max-width: 600px) {
     width: 150px;
   }
+`;
+
+const VideoWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* max-width: 70%; */
+`;
+
+const NoResultsVideo = styled.video`
+  width: 100%;
 `;

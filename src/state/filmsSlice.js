@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
 
 const API_KEY = process.env.REACT_APP_THE_MOVIE_DB_API_KEY;
 
@@ -8,45 +9,51 @@ export const getFilmDataAsync = createAsyncThunk(
     const film = `https://api.themoviedb.org/3/movie/${filmID}?api_key=${API_KEY}&language=en-US&page=1&region=GB`;
     const filmActors = `https://api.themoviedb.org/3/movie/${filmID}/credits?api_key=${API_KEY}`;
     const filmImages = `https://api.themoviedb.org/3/movie/${filmID}/images?api_key=${API_KEY}`;
-    const filmRecommendations = `https://api.themoviedb.org/3/movie/${filmID}/recommendations?api_key=${API_KEY}`;
 
-    const res1 = await fetch(film);
-    const res2 = await fetch(filmActors);
-    const res3 = await fetch(filmImages);
-    const res4 = await fetch(filmRecommendations);
+    const requestOne = await axios.get(film);
+    const requestTwo = await axios.get(filmActors);
+    const requestThree = await axios.get(filmImages);
 
-    const filmRes = await res1.json();
-    const filmActorsRes = await res2.json();
-    const filmImagesRes = await res3.json();
-    const filmRecommendationsRes = await res4.json();
+    const allRequests = await axios
+      .all([requestOne, requestTwo, requestThree])
+      .then((responses) => {
+        return {
+          filmRes: responses[0].data,
+          filmActorsRes: responses[1].data.cast,
+          filmImagesRes: responses[2].data.backdrops,
+        };
+      })
+      .catch((errors) => {
+        console.log(errors);
+      });
 
-    return { filmRes, filmActorsRes, filmImagesRes, filmRecommendationsRes };
+    return allRequests;
   }
 );
 
 export const getSearchedFilmsAsync = createAsyncThunk(
   'films/getSearchedFilmsAsync',
   async (searchQuery) => {
-    const fetchedSearchFilms = await fetch(
-      `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${searchQuery}`
-    );
+    const { data } = await axios
+      .get(
+        `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${searchQuery}`
+      )
+      .catch((error) => console.log(error));
 
-    const searchedFilms = await fetchedSearchFilms.json();
-
-    return { searchedFilms, type: searchQuery };
+    return { searchedFilms: data.results, type: searchQuery };
   }
 );
 
 export const getFilmsByTypeAsync = createAsyncThunk(
   'films/getFilmsByTypeAsync',
   async (searchTerm) => {
-    const fetchedFilmsByType = await fetch(
-      `https://api.themoviedb.org/3/movie/${searchTerm}?api_key=${API_KEY}&language=en-US&page=1&region=GB`
-    );
+    const { data } = await axios
+      .get(
+        `https://api.themoviedb.org/3/movie/${searchTerm}?api_key=${API_KEY}&language=en-US&page=1&region=GB`
+      )
+      .catch((error) => console.log(error));
 
-    const filmsByType = await fetchedFilmsByType.json();
-
-    return { filmsByType, type: searchTerm };
+    return { fetchedFilmsByType: data, type: searchTerm };
   }
 );
 
@@ -65,7 +72,6 @@ const filmsSlice = createSlice({
       selectedFilm: {},
       selectedFilmActors: [],
       selectedFilmImages: [],
-      selectedFilmRecommendations: [],
     },
   },
   reducers: {
@@ -75,7 +81,6 @@ const filmsSlice = createSlice({
         selectedFilm: {},
         selectedFilmActors: [],
         selectedFilmImages: [],
-        selectedFilmRecommendations: [],
       };
     },
     setIsLoading: (state) => {
@@ -90,10 +95,7 @@ const filmsSlice = createSlice({
       state.type = 'selected';
       state.selectedFilmData.selectedFilm = payload.filmRes;
       state.selectedFilmData.selectedFilmActors = payload.filmActorsRes;
-      state.selectedFilmData.selectedFilmImages =
-        payload.filmImagesRes.backdrops;
-      state.selectedFilmData.selectedFilmRecommendations =
-        payload.filmRecommendationsRes;
+      state.selectedFilmData.selectedFilmImages = payload.filmImagesRes;
       state.selectedFilmData.isLoading = false;
     },
     [getSearchedFilmsAsync.pending]: (state) => {
@@ -101,7 +103,7 @@ const filmsSlice = createSlice({
     },
     [getSearchedFilmsAsync.fulfilled]: (state, { payload }) => {
       state.type = payload.type;
-      state.searchedFilmsData.films = payload.searchedFilms.results;
+      state.searchedFilmsData.films = payload.searchedFilms;
       state.searchedFilmsData.isLoading = false;
     },
     [getFilmsByTypeAsync.pending]: (state) => {
@@ -109,7 +111,7 @@ const filmsSlice = createSlice({
     },
     [getFilmsByTypeAsync.fulfilled]: (state, { payload }) => {
       state.type = payload.type;
-      state.films = payload.filmsByType.results;
+      state.films = payload.fetchedFilmsByType.results;
       state.isLoading = false;
     },
   },

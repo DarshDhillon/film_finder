@@ -4,7 +4,7 @@ import NoImageAvailable from '../assets/images/no_image.png';
 
 const SelectedFilmActors = () => {
   const filmActors = useSelector(
-    (state) => state.filmsReducer.selectedFilmData.selectedFilmActors.cast
+    (state) => state.filmsReducer.selectedFilmData.selectedFilmActors
   );
 
   return (
