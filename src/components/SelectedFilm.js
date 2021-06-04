@@ -3,11 +3,12 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { getFilmDataAsync, clearSelectedFilm } from '../state/filmsSlice';
-import LoadingSpinner from '../assets/images/spinner_red.gif';
+import LoadingSpinner from '../assets/images/loading_spinner2.gif';
 import { AiOutlineCalendar } from 'react-icons/ai';
 import { AiOutlineClockCircle } from 'react-icons/ai';
 import { FaRegMoneyBillAlt } from 'react-icons/fa';
 import SelectedFilmActors from './SelectedFilmActors';
+import SelectedFilmGallery from './SelectedFilmGallery';
 
 const SelectedFilm = () => {
   const { filmID } = useParams();
@@ -16,8 +17,6 @@ const SelectedFilm = () => {
   const selectedFilmData = useSelector(
     (state) => state.filmsReducer.selectedFilmData
   );
-
-  console.log(selectedFilmData);
 
   const isLoading = useSelector(
     (state) => state.filmsReducer.selectedFilmData.isLoading
@@ -85,6 +84,7 @@ const SelectedFilm = () => {
             </FilmInfoContainer>
             <SelectedFilmActors />
           </FilmWrapper>
+          <SelectedFilmGallery />
         </FilmContainer>
       )}
     </>
@@ -105,7 +105,7 @@ const FilmWrapper = styled.div`
   width: 60%;
   display: flex;
   background-color: rgba(0, 0, 0, 0.7);
-  border-radius: 1rem;
+  border-radius: 1rem 1rem 0 0;
   flex-wrap: wrap;
 
   @media screen and (max-width: 1200px) {

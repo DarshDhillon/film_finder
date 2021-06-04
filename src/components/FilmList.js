@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import FilmCard from './FilmCard';
 import { getFilmsByTypeAsync } from '../state/filmsSlice';
-import LoadingSpinner from '../assets/images/spinner_red.gif';
+import LoadingSpinner from '../assets/images/loading_spinner2.gif';
 
 const FilmList = () => {
   const dispatch = useDispatch();

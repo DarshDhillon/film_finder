@@ -7,8 +7,6 @@ const SelectedFilmActors = () => {
     (state) => state.filmsReducer.selectedFilmData.selectedFilmActors.cast
   );
 
-  console.log(filmActors);
-
   return (
     <FilmActorsContainer>
       <FilmActorsWrapper>

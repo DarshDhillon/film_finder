@@ -90,7 +90,8 @@ const filmsSlice = createSlice({
       state.type = 'selected';
       state.selectedFilmData.selectedFilm = payload.filmRes;
       state.selectedFilmData.selectedFilmActors = payload.filmActorsRes;
-      state.selectedFilmData.selectedFilmImages = payload.filmImagesRes;
+      state.selectedFilmData.selectedFilmImages =
+        payload.filmImagesRes.backdrops;
       state.selectedFilmData.selectedFilmRecommendations =
         payload.filmRecommendationsRes;
       state.selectedFilmData.isLoading = false;

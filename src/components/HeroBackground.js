@@ -6,25 +6,21 @@ import HeroBG from '../assets/images/main_bg2.jpg';
 const HeroBackground = ({ children }) => {
   const [backgroundImage, setBackgroundImage] = useState(HeroBG);
 
-  const selectedFilmBackgroundImage = useSelector((state) =>
-    state.filmsReducer.selectedFilmData.selectedFilmImages.backdrops
-      ? state.filmsReducer.selectedFilmData.selectedFilmImages.backdrops[0]
-          .file_path
-      : null
+  const selectedFilmImages = useSelector(
+    (state) => state.filmsReducer.selectedFilmData.selectedFilmImages
   );
 
   const stateType = useSelector((state) => state.filmsReducer.type);
 
-  console.log('rendered');
-
   useEffect(() => {
-    stateType === 'selected'
-      ? selectedFilmBackgroundImage &&
-        setBackgroundImage(
-          `https://image.tmdb.org/t/p/original${selectedFilmBackgroundImage}`
-        )
-      : setBackgroundImage(HeroBG);
-  }, [stateType, selectedFilmBackgroundImage]);
+    setBackgroundImage(() => {
+      if (stateType === 'selected' && selectedFilmImages.length > 0) {
+        return `https://image.tmdb.org/t/p/original${selectedFilmImages[0].file_path}`;
+      } else {
+        return HeroBG;
+      }
+    });
+  }, [stateType, selectedFilmImages]);
 
   return <Background $image={backgroundImage}>{children}</Background>;
 };
@@ -41,21 +37,3 @@ const Background = styled.div`
   background-attachment: fixed;
   background-size: cover;
 `;
-
-// const [backgroundImage, setBackgroundImage] = useState(HeroBG);
-
-// const selectedFilmBackgroundImage = useSelector((state) =>
-//   state.filmsReducer.selectedFilmData.selectedFilmImages.backdrops
-//     ? state.filmsReducer.selectedFilmData.selectedFilmImages.backdrops[0]
-//         .file_path
-//     : null
-// );
-
-// console.log('rendered');
-
-// useEffect(() => {
-//   selectedFilmBackgroundImage &&
-//     setBackgroundImage(
-//       `https://image.tmdb.org/t/p/original${selectedFilmBackgroundImage}`
-//     );
-// }, [selectedFilmBackgroundImage]);
