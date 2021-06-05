@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import FilmCard from './FilmCard';
 import LoadingSpinner from '../assets/images/loading_spinner2.gif';
-import NoResultsFoundVideo from '../assets/videos/NoResultsFound.mp4';
 
 const SearchedFilms = () => {
   const searchedFilms = useSelector(
@@ -20,12 +19,9 @@ const SearchedFilms = () => {
       ) : (
         <FilmsWrapper>
           {searchedFilms.length === 0 ? (
-            <VideoWrapper>
-              <NoResultsVideo
-                autoPlay
-                src={NoResultsFoundVideo}
-              ></NoResultsVideo>
-            </VideoWrapper>
+            <NoResultsWrapper>
+              <h1>Sorry - no matches found. Please try another search term</h1>
+            </NoResultsWrapper>
           ) : (
             searchedFilms.map((film) => (
               <Link
@@ -78,13 +74,14 @@ const Spinner = styled.img`
   }
 `;
 
-const VideoWrapper = styled.div`
+const NoResultsWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   /* max-width: 70%; */
-`;
+  text-align: center;
 
-const NoResultsVideo = styled.video`
-  width: 100%;
+  h1 {
+    color: #fff;
+  }
 `;
