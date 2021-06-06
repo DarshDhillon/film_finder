@@ -22,21 +22,19 @@ const FilmList = () => {
       {isLoading ? (
         <Spinner alt='spinner' src={LoadingSpinner} />
       ) : (
-        <div>
-          <FilmsWrapper>
-            {films.map((film) => (
-              <Link
-                style={{ textDecoration: 'none' }}
-                key={film.id}
-                to={`/film/${film.id}`}
-              >
-                <FilmCard film={film} />
-              </Link>
-            ))}
-          </FilmsWrapper>
-          <Pagination />
-        </div>
+        <FilmsWrapper>
+          {films.map((film) => (
+            <Link
+              style={{ textDecoration: 'none' }}
+              key={film.id}
+              to={`/film/${film.id}`}
+            >
+              <FilmCard film={film} />
+            </Link>
+          ))}
+        </FilmsWrapper>
       )}
+      <Pagination />
     </FilmsContainer>
   );
 };
@@ -49,6 +47,9 @@ const FilmsContainer = styled.div`
   width: 100%;
   background-color: transparent;
   padding: 2rem 0rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const FilmsWrapper = styled.div`

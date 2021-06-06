@@ -1,35 +1,73 @@
 import styled from 'styled-components';
 import { getFilmsByTypeAndPageAsync } from '../state/filmsSlice';
 import { useSelector, useDispatch } from 'react-redux';
+import ReactPaginate from 'react-paginate';
 
 const Pagination = () => {
   const dispatch = useDispatch();
 
   const totalResults = useSelector((state) => state.filmsReducer.totalResults);
-  const currentPage = useSelector((state) => state.filmsReducer.currentPage);
   const searchTerm = useSelector((state) => state.filmsReducer.type);
+  const numberOfPages = Math.round(totalResults / 20);
 
-  const nextPage = (pageNumber) => {
+  const handlePageClick = (e) => {
+    const pageNumber = e.selected + 1;
     dispatch(getFilmsByTypeAndPageAsync({ searchTerm, pageNumber }));
   };
 
-  const numberOfPages = Math.floor(totalResults / 20);
-  const pageLinks = [];
-
-  for (let i = 1; i <= numberOfPages + 1; i++) {
-    pageLinks.push(
-      <Button key={i} onClick={() => nextPage(i)}>
-        {i}
-      </Button>
-    );
-  }
-
-  return <div>{totalResults > 20 && <ul>{pageLinks}</ul>}</div>;
+  return (
+    <PaginationContainer>
+      <ReactPaginate
+        previousLabel='&larr;'
+        nextLabel='&rarr;'
+        breakLabel={'...'}
+        breakClassName={'break-me'}
+        pageCount={numberOfPages}
+        marginPagesDisplayed={2}
+        pageRangeDisplayed={2}
+        onPageChange={handlePageClick}
+        containerClassName={'pagination'}
+        activeClassName={'active'}
+      />
+    </PaginationContainer>
+  );
 };
 
 export default Pagination;
 
-const Button = styled.button`
-  padding: 1rem;
-  background: orange;
+const PaginationContainer = styled.div`
+  .pagination {
+    margin: 15px auto;
+    display: flex;
+    list-style: none;
+    outline: none;
+  }
+
+  .pagination > li > a {
+    border: 1px solid #fff;
+    background-color: black;
+    padding: 5px 10px;
+    outline: none;
+    cursor: pointer;
+  }
+  .pagination > .active > a,
+  .pagination > .active > span,
+  .pagination > .active > a:hover,
+  .pagination > .active > span:hover,
+  .pagination > .active > a:focus,
+  .pagination > .active > span:focus {
+    background-color: #8b2020;
+    /* border-color: #8b2020; */
+    outline: none;
+  }
+  .pagination > li > a,
+  .pagination > li > span {
+    color: #fff;
+  }
+  .pagination > li:first-child > a,
+  .pagination > li:first-child > span,
+  .pagination > li:last-child > a,
+  .pagination > li:last-child > span {
+    border-radius: unset;
+  }
 `;

@@ -68,7 +68,7 @@ const filmsSlice = createSlice({
     isLoading: true,
     films: [],
     totalResults: 0,
-    currentPage: 1,
+    currentPage: '',
     searchedFilmsData: {
       totalResults: 0,
       currentPage: 1,
