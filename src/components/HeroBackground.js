@@ -10,7 +10,9 @@ const HeroBackground = ({ children }) => {
     (state) => state.filmsReducer.selectedFilmData.selectedFilmImages
   );
 
-  const stateType = useSelector((state) => state.filmsReducer.type);
+  const stateType = useSelector(
+    (state) => state.filmsReducer.selectedFilmData.type
+  );
 
   useEffect(() => {
     setBackgroundImage(() => {

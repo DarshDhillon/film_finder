@@ -187,6 +187,8 @@ const FilmGenreWrapper = styled.div`
   padding: 0.5rem;
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
+  /* align-items: center; */
 
   @media screen and (max-width: 600px) {
     width: 100%;
@@ -198,6 +200,7 @@ const FilmGenre = styled.h3`
   border-radius: 0.5rem;
   color: #fff;
   background-color: #8b2020;
+  margin-bottom: 0.5rem;
 
   @media screen and (max-width: 1200px) {
     font-size: 0.7rem;

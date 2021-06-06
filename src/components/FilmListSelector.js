@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getFilmsByTypeAsync } from '../state/filmsSlice';
+import { setType } from '../state/filmsSlice';
 
 const FilmListSelector = () => {
   const dispatch = useDispatch();
@@ -14,7 +14,7 @@ const FilmListSelector = () => {
           <FilmsSelectButton
             name='popular'
             $type={filmType}
-            onClick={(e) => dispatch(getFilmsByTypeAsync(e.target.name))}
+            onClick={(e) => dispatch(setType(e.target.name))}
           >
             Popular
           </FilmsSelectButton>
@@ -23,7 +23,7 @@ const FilmListSelector = () => {
           <FilmsSelectButton
             name='top_rated'
             $type={filmType}
-            onClick={(e) => dispatch(getFilmsByTypeAsync(e.target.name))}
+            onClick={(e) => dispatch(setType(e.target.name))}
           >
             Top Rated
           </FilmsSelectButton>
@@ -32,7 +32,7 @@ const FilmListSelector = () => {
           <FilmsSelectButton
             name='upcoming'
             $type={filmType}
-            onClick={(e) => dispatch(getFilmsByTypeAsync(e.target.name))}
+            onClick={(e) => dispatch(setType(e.target.name))}
           >
             Upcoming
           </FilmsSelectButton>
@@ -87,3 +87,10 @@ const FilmsSelectButton = styled.button`
     padding: 0.4rem 0.5rem;
   }
 `;
+
+// dispatch(
+//   getFilmsByTypeAndPageAsync({
+//     searchTerm: e.target.name,
+//     pageNumber: 1,
+//   })
+// )

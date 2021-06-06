@@ -3,34 +3,39 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import FilmCard from './FilmCard';
-import { getFilmsByTypeAsync } from '../state/filmsSlice';
+import { getFilmsByTypeAndPageAsync } from '../state/filmsSlice';
 import LoadingSpinner from '../assets/images/loading_spinner2.gif';
+import Pagination from './Pagination';
 
 const FilmList = () => {
   const dispatch = useDispatch();
   const films = useSelector((state) => state.filmsReducer.films);
   const isLoading = useSelector((state) => state.filmsReducer.isLoading);
+  const searchTerm = useSelector((state) => state.filmsReducer.type);
 
   useEffect(() => {
-    films.length === 0 && dispatch(getFilmsByTypeAsync('now_playing'));
-  }, []);
+    dispatch(getFilmsByTypeAndPageAsync({ searchTerm, pageNumber: 1 }));
+  }, [searchTerm]);
 
   return (
     <FilmsContainer>
       {isLoading ? (
         <Spinner alt='spinner' src={LoadingSpinner} />
       ) : (
-        <FilmsWrapper>
-          {films.map((film) => (
-            <Link
-              style={{ textDecoration: 'none' }}
-              key={film.id}
-              to={`/film/${film.id}`}
-            >
-              <FilmCard film={film} />
-            </Link>
-          ))}
-        </FilmsWrapper>
+        <div>
+          <FilmsWrapper>
+            {films.map((film) => (
+              <Link
+                style={{ textDecoration: 'none' }}
+                key={film.id}
+                to={`/film/${film.id}`}
+              >
+                <FilmCard film={film} />
+              </Link>
+            ))}
+          </FilmsWrapper>
+          <Pagination />
+        </div>
       )}
     </FilmsContainer>
   );
@@ -39,10 +44,10 @@ const FilmList = () => {
 export default FilmList;
 
 const FilmsContainer = styled.div`
+  /* border: 1px solid red; */
   /* height: 100vh; */
   width: 100%;
   background-color: transparent;
-  /* border: 1px solid red; */
   padding: 2rem 0rem;
 `;
 

@@ -33,41 +33,50 @@ export const getFilmDataAsync = createAsyncThunk(
 
 export const getSearchedFilmsAsync = createAsyncThunk(
   'films/getSearchedFilmsAsync',
-  async (searchQuery) => {
+  async ({ searchQuery, pageNumber }) => {
     const { data } = await axios
       .get(
-        `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${searchQuery}`
+        `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${searchQuery}&page=${pageNumber}`
       )
       .catch((error) => console.log(error));
 
-    return { searchedFilms: data.results, type: searchQuery };
+    return { searchedFilms: data, type: searchQuery, pageNumber: pageNumber };
   }
 );
 
-export const getFilmsByTypeAsync = createAsyncThunk(
+export const getFilmsByTypeAndPageAsync = createAsyncThunk(
   'films/getFilmsByTypeAsync',
-  async (searchTerm) => {
+  async ({ searchTerm, pageNumber }) => {
     const { data } = await axios
       .get(
-        `https://api.themoviedb.org/3/movie/${searchTerm}?api_key=${API_KEY}&language=en-US&page=1&region=GB`
+        `https://api.themoviedb.org/3/movie/${searchTerm}?api_key=${API_KEY}&language=en-US&page=${pageNumber}&region=GB`
       )
       .catch((error) => console.log(error));
 
-    return { fetchedFilmsByType: data, type: searchTerm };
+    return {
+      fetchedFilmsByType: data,
+      type: searchTerm,
+      pageNumber: pageNumber,
+    };
   }
 );
 
 const filmsSlice = createSlice({
   name: 'films',
   initialState: {
-    type: '',
+    type: 'now_playing',
     isLoading: true,
     films: [],
+    totalResults: 0,
+    currentPage: 1,
     searchedFilmsData: {
+      totalResults: 0,
+      currentPage: 1,
       isLoading: true,
       films: [],
     },
     selectedFilmData: {
+      type: '',
       isLoading: true,
       selectedFilm: {},
       selectedFilmActors: [],
@@ -86,13 +95,16 @@ const filmsSlice = createSlice({
     setIsLoading: (state) => {
       state.isLoading = true;
     },
+    setType: (state, { payload }) => {
+      state.type = payload;
+    },
   },
   extraReducers: {
     [getFilmDataAsync.pending]: (state) => {
       state.selectedFilmData.isLoading = true;
     },
     [getFilmDataAsync.fulfilled]: (state, { payload }) => {
-      state.type = 'selected';
+      state.selectedFilmData.type = 'selected';
       state.selectedFilmData.selectedFilm = payload.filmRes;
       state.selectedFilmData.selectedFilmActors = payload.filmActorsRes;
       state.selectedFilmData.selectedFilmImages = payload.filmImagesRes;
@@ -102,21 +114,25 @@ const filmsSlice = createSlice({
       state.searchedFilmsData.isLoading = true;
     },
     [getSearchedFilmsAsync.fulfilled]: (state, { payload }) => {
-      state.type = payload.type;
-      state.searchedFilmsData.films = payload.searchedFilms;
+      state.searchedFilmsData.currentPage = payload.pageNumber;
+      state.searchedFilmsData.totalResults =
+        payload.searchedFilms.total_results;
+      state.searchedFilmsData.films = payload.searchedFilms.results;
       state.searchedFilmsData.isLoading = false;
     },
-    [getFilmsByTypeAsync.pending]: (state) => {
+    [getFilmsByTypeAndPageAsync.pending]: (state) => {
       state.isLoading = true;
     },
-    [getFilmsByTypeAsync.fulfilled]: (state, { payload }) => {
+    [getFilmsByTypeAndPageAsync.fulfilled]: (state, { payload }) => {
       state.type = payload.type;
       state.films = payload.fetchedFilmsByType.results;
       state.isLoading = false;
+      state.currentPage = payload.pageNumber;
+      state.totalResults = payload.fetchedFilmsByType.total_results;
     },
   },
 });
 
-export const { clearSelectedFilm, setIsLoading } = filmsSlice.actions;
+export const { clearSelectedFilm, setIsLoading, setType } = filmsSlice.actions;
 
 export default filmsSlice.reducer;

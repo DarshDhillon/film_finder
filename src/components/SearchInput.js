@@ -12,7 +12,9 @@ const SearchInput = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(getSearchedFilmsAsync(searchInput));
+    dispatch(
+      getSearchedFilmsAsync({ searchQuery: searchInput, pageNumber: 1 })
+    );
     history.push(`/search/${searchInput}`);
     setSearchInput('');
   };

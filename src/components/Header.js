@@ -2,14 +2,20 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { GiFilmProjector } from 'react-icons/gi';
 import SearchInput from './SearchInput';
+import { useDispatch } from 'react-redux';
+import { setType } from '../state/filmsSlice';
 
 const Header = () => {
+  const dispatch = useDispatch();
+
   return (
     <HeaderContainer>
       <HeaderWrapper>
         <Logo />
         <HomeLink to='/'>
-          <Title>Film Finder</Title>
+          <Title onClick={() => dispatch(setType('now_playing'))}>
+            Film Finder
+          </Title>
         </HomeLink>
         <Logo $reverse />
       </HeaderWrapper>
@@ -61,7 +67,6 @@ const Title = styled.h1`
   font-size: 4rem;
   font-style: italic;
   font-weight: bold;
-  /* text-decoration: none; */
 
   @media screen and (max-width: 768px) {
     font-size: 2.5rem;

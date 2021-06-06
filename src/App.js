@@ -15,7 +15,7 @@ function App() {
         <Header />
         <FilmListSelector />
         <Switch>
-          <Route exact path={['/', '/popular']} component={FilmList} />
+          <Route exact path='/' component={FilmList} />
           <Route path='/search/:searchTerm' component={SearchedFilms} />
           <Route path='/film/:filmID' component={SelectedFilm} />
         </Switch>
