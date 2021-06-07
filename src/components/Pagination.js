@@ -1,19 +1,24 @@
+import { useEffect } from 'react';
 import styled from 'styled-components';
 import { getFilmsByTypeAndPageAsync } from '../state/filmsSlice';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import ReactPaginate from 'react-paginate';
 
 const Pagination = () => {
   const dispatch = useDispatch();
-
-  const totalResults = useSelector((state) => state.filmsReducer.totalResults);
-  const searchTerm = useSelector((state) => state.filmsReducer.type);
-  const numberOfPages = Math.round(totalResults / 20);
+  const searchQuery = useSelector((state) => state.filmsReducer.type);
 
   const handlePageClick = (e) => {
     const pageNumber = e.selected + 1;
-    dispatch(getFilmsByTypeAndPageAsync({ searchTerm, pageNumber }));
+    dispatch(getFilmsByTypeAndPageAsync({ searchQuery, pageNumber }));
   };
+
+  const totalResults = useSelector((state) => state.filmsReducer.totalResults);
+  const numberOfPages = Math.round(totalResults / 20);
+
+  useEffect(() => {
+    console.log('updated');
+  }, [numberOfPages]);
 
   return (
     <PaginationContainer>
@@ -24,6 +29,9 @@ const Pagination = () => {
         breakClassName={'break-me'}
         pageCount={numberOfPages}
         marginPagesDisplayed={2}
+        initialPage={0}
+        // disableInitialCallback={true}
+        forcePage={0}
         pageRangeDisplayed={2}
         onPageChange={handlePageClick}
         containerClassName={'pagination'}
@@ -56,7 +64,7 @@ const PaginationContainer = styled.div`
   .pagination > .active > span:hover,
   .pagination > .active > a:focus,
   .pagination > .active > span:focus {
-    background-color: #8b2020;
+    /* background-color: #8b2020; */
     /* border-color: #8b2020; */
     outline: none;
   }

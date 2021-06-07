@@ -46,16 +46,16 @@ export const getSearchedFilmsAsync = createAsyncThunk(
 
 export const getFilmsByTypeAndPageAsync = createAsyncThunk(
   'films/getFilmsByTypeAsync',
-  async ({ searchTerm, pageNumber }) => {
+  async ({ searchQuery, pageNumber }) => {
     const { data } = await axios
       .get(
-        `https://api.themoviedb.org/3/movie/${searchTerm}?api_key=${API_KEY}&language=en-US&page=${pageNumber}&region=GB`
+        `https://api.themoviedb.org/3/movie/${searchQuery}?api_key=${API_KEY}&language=en-US&page=${pageNumber}&region=GB`
       )
       .catch((error) => console.log(error));
 
     return {
       fetchedFilmsByType: data,
-      type: searchTerm,
+      type: searchQuery,
       pageNumber: pageNumber,
     };
   }
@@ -68,7 +68,7 @@ const filmsSlice = createSlice({
     isLoading: true,
     films: [],
     totalResults: 0,
-    currentPage: '',
+    currentPage: 1,
     searchedFilmsData: {
       totalResults: 0,
       currentPage: 1,
@@ -126,9 +126,9 @@ const filmsSlice = createSlice({
     [getFilmsByTypeAndPageAsync.fulfilled]: (state, { payload }) => {
       state.type = payload.type;
       state.films = payload.fetchedFilmsByType.results;
-      state.isLoading = false;
       state.currentPage = payload.pageNumber;
       state.totalResults = payload.fetchedFilmsByType.total_results;
+      state.isLoading = false;
     },
   },
 });

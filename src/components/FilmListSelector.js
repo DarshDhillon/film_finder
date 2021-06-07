@@ -87,10 +87,3 @@ const FilmsSelectButton = styled.button`
     padding: 0.4rem 0.5rem;
   }
 `;
-
-// dispatch(
-//   getFilmsByTypeAndPageAsync({
-//     searchTerm: e.target.name,
-//     pageNumber: 1,
-//   })
-// )

@@ -11,13 +11,13 @@ const Header = () => {
   return (
     <HeaderContainer>
       <HeaderWrapper>
-        <Logo />
+        <ProjectorIcon />
         <HomeLink to='/'>
           <Title onClick={() => dispatch(setType('now_playing'))}>
             Film Finder
           </Title>
         </HomeLink>
-        <Logo $reverse />
+        <ProjectorIcon $reverse />
       </HeaderWrapper>
       <SearchInput />
     </HeaderContainer>
@@ -76,7 +76,7 @@ const Title = styled.h1`
   -webkit-text-stroke-color: lightgrey; */
 `;
 
-const Logo = styled(GiFilmProjector)`
+const ProjectorIcon = styled(GiFilmProjector)`
   font-size: 3rem;
   transform: ${({ $reverse }) => $reverse && 'scaleX(-1)'};
   color: #fff;

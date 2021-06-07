@@ -11,11 +11,11 @@ const FilmList = () => {
   const dispatch = useDispatch();
   const films = useSelector((state) => state.filmsReducer.films);
   const isLoading = useSelector((state) => state.filmsReducer.isLoading);
-  const searchTerm = useSelector((state) => state.filmsReducer.type);
+  const searchQuery = useSelector((state) => state.filmsReducer.type);
 
   useEffect(() => {
-    dispatch(getFilmsByTypeAndPageAsync({ searchTerm, pageNumber: 1 }));
-  }, [searchTerm]);
+    dispatch(getFilmsByTypeAndPageAsync({ searchQuery, pageNumber: 1 }));
+  }, [searchQuery]);
 
   return (
     <FilmsContainer>
