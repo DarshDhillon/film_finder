@@ -2,20 +2,14 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { GiFilmProjector } from 'react-icons/gi';
 import SearchInput from './SearchInput';
-import { useDispatch } from 'react-redux';
-import { setType } from '../state/filmsSlice';
 
 const Header = () => {
-  const dispatch = useDispatch();
-
   return (
     <HeaderContainer>
       <HeaderWrapper>
         <ProjectorIcon />
         <HomeLink to='/'>
-          <Title onClick={() => dispatch(setType('now_playing'))}>
-            Film Finder
-          </Title>
+          <Title>Film Finder</Title>
         </HomeLink>
         <ProjectorIcon $reverse />
       </HeaderWrapper>

@@ -1,39 +1,30 @@
 import styled from 'styled-components';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { setType } from '../state/filmsSlice';
 
 const FilmListSelector = () => {
-  const dispatch = useDispatch();
   const filmType = useSelector((state) => state.filmsReducer.type);
 
   return (
     <ButtonsContainer>
       <ButtonsWrapper>
         <Link to='/'>
-          <FilmsSelectButton
-            name='popular'
-            $type={filmType}
-            onClick={(e) => dispatch(setType(e.target.name))}
-          >
+          <FilmsSelectButton name='now_playing' $type={filmType}>
+            Now playing
+          </FilmsSelectButton>
+        </Link>
+        <Link to='/popular'>
+          <FilmsSelectButton name='popular' $type={filmType}>
             Popular
           </FilmsSelectButton>
         </Link>
-        <Link to='/'>
-          <FilmsSelectButton
-            name='top_rated'
-            $type={filmType}
-            onClick={(e) => dispatch(setType(e.target.name))}
-          >
+        <Link to='/top_rated'>
+          <FilmsSelectButton name='top_rated' $type={filmType}>
             Top Rated
           </FilmsSelectButton>
         </Link>
-        <Link to='/'>
-          <FilmsSelectButton
-            name='upcoming'
-            $type={filmType}
-            onClick={(e) => dispatch(setType(e.target.name))}
-          >
+        <Link to='/upcoming'>
+          <FilmsSelectButton name='upcoming' $type={filmType}>
             Upcoming
           </FilmsSelectButton>
         </Link>
@@ -61,8 +52,9 @@ const ButtonsWrapper = styled.div`
   justify-content: space-between;
 
   @media screen and (max-width: 768px) {
-    width: 80%;
+    width: 100%;
     justify-content: space-around;
+    /* flex-direction: column; */
   }
 `;
 

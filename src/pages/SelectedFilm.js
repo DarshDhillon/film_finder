@@ -7,8 +7,8 @@ import LoadingSpinner from '../assets/images/loading_spinner2.gif';
 import { AiOutlineCalendar } from 'react-icons/ai';
 import { AiOutlineClockCircle } from 'react-icons/ai';
 import { FaRegMoneyBillAlt } from 'react-icons/fa';
-import SelectedFilmActors from './SelectedFilmActors';
-import SelectedFilmGallery from './SelectedFilmGallery';
+import SelectedFilmActors from '../components/SelectedFilmActors';
+import SelectedFilmGallery from '../components/SelectedFilmGallery';
 
 const SelectedFilm = () => {
   const { filmID } = useParams();

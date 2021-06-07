@@ -64,12 +64,13 @@ export const getFilmsByTypeAndPageAsync = createAsyncThunk(
 const filmsSlice = createSlice({
   name: 'films',
   initialState: {
-    type: 'now_playing',
+    type: '',
     isLoading: true,
     films: [],
     totalResults: 0,
     currentPage: 1,
     searchedFilmsData: {
+      type: '',
       totalResults: 0,
       currentPage: 1,
       isLoading: true,
@@ -104,7 +105,7 @@ const filmsSlice = createSlice({
       state.selectedFilmData.isLoading = true;
     },
     [getFilmDataAsync.fulfilled]: (state, { payload }) => {
-      state.selectedFilmData.type = 'selected';
+      state.type = 'selected';
       state.selectedFilmData.selectedFilm = payload.filmRes;
       state.selectedFilmData.selectedFilmActors = payload.filmActorsRes;
       state.selectedFilmData.selectedFilmImages = payload.filmImagesRes;
@@ -114,6 +115,8 @@ const filmsSlice = createSlice({
       state.searchedFilmsData.isLoading = true;
     },
     [getSearchedFilmsAsync.fulfilled]: (state, { payload }) => {
+      state.type = 'searched';
+      state.searchedFilmsData.type = payload.type;
       state.searchedFilmsData.currentPage = payload.pageNumber;
       state.searchedFilmsData.totalResults =
         payload.searchedFilms.total_results;
