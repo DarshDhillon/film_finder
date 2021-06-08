@@ -10,7 +10,6 @@ const NowPlaying = () => {
   const dispatch = useDispatch();
   const films = useSelector((state) => state.filmsReducer.films);
   const isLoading = useSelector((state) => state.filmsReducer.isLoading);
-  // const searchQuery = useSelector((state) => state.filmsReducer.type);
   const totalResults = useSelector((state) => state.filmsReducer.totalResults);
   const numberOfPages = Math.round(totalResults / 20);
 

@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from 'react-router-dom';
 import GlobalStyle from './utils/GlobalStyle';
 import HeroBackground from './components/HeroBackground';
 import Header from './components/Header';
@@ -18,7 +23,10 @@ function App() {
         <Header />
         <FilmListSelector />
         <Switch>
-          <Route exact path='/' component={NowPlaying} />
+          <Route exact path='/'>
+            <Redirect to='/now_playing' />
+          </Route>
+          <Route path='/now_playing' component={NowPlaying} />
           <Route path='/popular' component={Popular} />
           <Route path='/top_rated' component={TopRated} />
           <Route path='/upcoming' component={Upcoming} />
