@@ -24,7 +24,7 @@ export const getFilmDataAsync = createAsyncThunk(
         };
       })
       .catch((errors) => {
-        console.log(errors);
+        console.error(errors);
       });
 
     return allRequests;
@@ -38,7 +38,7 @@ export const getSearchedFilmsAsync = createAsyncThunk(
       .get(
         `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${searchQuery}&page=${pageNumber}`
       )
-      .catch((error) => console.log(error));
+      .catch((error) => console.error(error));
 
     return { searchedFilms: data, type: searchQuery, pageNumber: pageNumber };
   }
@@ -51,7 +51,7 @@ export const getFilmsByTypeAndPageAsync = createAsyncThunk(
       .get(
         `https://api.themoviedb.org/3/movie/${searchQuery}?api_key=${API_KEY}&language=en-US&page=${pageNumber}&region=GB`
       )
-      .catch((error) => console.log(error));
+      .catch((error) => console.error(error));
 
     return {
       fetchedFilmsByType: data,

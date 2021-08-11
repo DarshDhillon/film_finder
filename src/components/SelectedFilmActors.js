@@ -13,7 +13,6 @@ const SelectedFilmActors = () => {
         {filmActors.slice(0, 20).map((actor) => (
           <FilmActorCard key={actor.id}>
             <FilmActorImage
-              key={actor.id}
               alt={actor.name}
               src={
                 !actor.profile_path

@@ -15,7 +15,7 @@ import SearchedFilms from './pages/SearchedFilms';
 import TopRated from './pages/TopRated';
 import Upcoming from './pages/Upcoming';
 
-function App() {
+const App = () => {
   return (
     <Router>
       <GlobalStyle />
@@ -36,6 +36,6 @@ function App() {
       </HeroBackground>
     </Router>
   );
-}
+};
 
 export default App;
