@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import HeroBG from '../assets/images/main_bg2.jpg';
+import PropTypes from 'prop-types';
 
 const HeroBackground = ({ children }) => {
   const [backgroundImage, setBackgroundImage] = useState(HeroBG);
@@ -23,6 +24,10 @@ const HeroBackground = ({ children }) => {
   }, [stateType, selectedFilmImages]);
 
   return <Background $image={backgroundImage}>{children}</Background>;
+};
+
+HeroBackground.propTypes = {
+  children: PropTypes.node,
 };
 
 export default HeroBackground;

@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import ReactPaginate from 'react-paginate';
+import PropTypes from 'prop-types';
 
 const Pagination = ({ numberOfPages, handlePageClick }) => {
   return (
@@ -18,6 +19,11 @@ const Pagination = ({ numberOfPages, handlePageClick }) => {
       />
     </PaginationContainer>
   );
+};
+
+Pagination.propTypes = {
+  numberOfPages: PropTypes.number,
+  handlePageClick: PropTypes.func,
 };
 
 export default Pagination;
@@ -44,7 +50,6 @@ const PaginationContainer = styled.div`
   .pagination > .active > a:focus,
   .pagination > .active > span:focus {
     background-color: #8b2020;
-    /* border-color: #8b2020; */
     outline: none;
   }
   .pagination > li > a,

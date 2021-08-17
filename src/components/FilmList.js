@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import FilmCard from './FilmCard';
+import PropTypes from 'prop-types';
 
 const FilmList = ({ films }) => {
   return (
@@ -16,6 +17,10 @@ const FilmList = ({ films }) => {
       ))}
     </FilmsWrapper>
   );
+};
+
+FilmList.propTypes = {
+  films: PropTypes.array,
 };
 
 export default FilmList;
