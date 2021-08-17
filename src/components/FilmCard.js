@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import NoImageAvailable from '../assets/images/no_image.png';
+import PropTypes from 'prop-types';
 
 const changeDateOrder = (date) => {
   let newDateOrder = date.split(/\s*-\s*/g);
@@ -28,6 +29,11 @@ const FilmCard = ({ film }) => {
     </FilmCardContainer>
   );
 };
+
+FilmCard.propTypes = {
+  film: PropTypes.object,
+};
+
 export default FilmCard;
 
 const FilmCardContainer = styled.div`

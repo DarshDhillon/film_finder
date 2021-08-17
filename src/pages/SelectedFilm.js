@@ -94,12 +94,10 @@ const SelectedFilm = () => {
 export default SelectedFilm;
 
 const FilmContainer = styled.div`
-  /* border: 1px solid orange; */
   width: 100%;
 `;
 
 const FilmWrapper = styled.div`
-  /* border: 1px solid #fff; */
   padding: 0.5rem;
   margin: 0 auto;
   width: 60%;
@@ -136,13 +134,11 @@ const FilmPoster = styled.img`
 `;
 
 const FilmInfo = styled.div`
-  /* border: 1px solid red; */
   padding: 0.5rem 2rem;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  /* width: 100%; */
 
   @media screen and (max-width: 1200px) {
     text-align: center;
@@ -182,13 +178,11 @@ const FilmOverview = styled.h3`
 `;
 
 const FilmGenreWrapper = styled.div`
-  /* border: 1px solid yellow; */
   width: 80%;
   padding: 0.5rem;
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  /* align-items: center; */
 
   @media screen and (max-width: 600px) {
     width: 100%;
@@ -221,7 +215,6 @@ const Spinner = styled.img`
 `;
 
 const FilmFootnotes = styled.div`
-  /* border: 1px solid red; */
   width: 100%;
   display: flex;
   align-items: center;
@@ -239,14 +232,12 @@ const DateWrapper = styled.div`
 `;
 
 const FilmReleaseDate = styled.p`
-  /* font-size: 1.5rem; */
   color: #fff;
 `;
 
 const CalendarIcon = styled(AiOutlineCalendar)`
   color: yellow;
   margin-right: 0.5rem;
-  /* font-size: 1.5rem; */
 `;
 
 const RuntimeWrapper = styled.div`
@@ -255,14 +246,12 @@ const RuntimeWrapper = styled.div`
 `;
 
 const FilmRuntime = styled.p`
-  /* font-size: 1.5rem; */
   color: #fff;
 `;
 
 const ClockIcon = styled(AiOutlineClockCircle)`
   color: yellow;
   margin-right: 0.5rem;
-  /* font-size: 1.5rem; */
 `;
 
 const BudgetWrapper = styled.div`
@@ -271,12 +260,10 @@ const BudgetWrapper = styled.div`
 `;
 
 const FilmBudget = styled.p`
-  /* font-size: 1.5rem; */
   color: #fff;
 `;
 
 const BudgetIcon = styled(FaRegMoneyBillAlt)`
   color: yellow;
   margin-right: 0.5rem;
-  /* font-size: 1.5rem; */
 `;

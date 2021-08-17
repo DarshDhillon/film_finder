@@ -21,14 +21,9 @@ const FilmList = ({ films }) => {
 export default FilmList;
 
 const FilmsWrapper = styled.div`
-  /* border: 1px solid blue; */
   width: 75%;
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-
-  /* @media screen and (max-width: 1200px) {
-    width: 80%;
-  } */
 `;

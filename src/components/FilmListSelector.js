@@ -36,8 +36,6 @@ const FilmListSelector = () => {
 export default FilmListSelector;
 
 const ButtonsContainer = styled.div`
-  /* border: 1px solid red; */
-  /* height: 200px; */
   width: 100%;
   display: flex;
   justify-content: center;
@@ -46,7 +44,6 @@ const ButtonsContainer = styled.div`
 `;
 
 const ButtonsWrapper = styled.div`
-  /* border: 1px solid blue; */
   display: flex;
   width: 50%;
   justify-content: space-between;
@@ -54,7 +51,6 @@ const ButtonsWrapper = styled.div`
   @media screen and (max-width: 768px) {
     width: 100%;
     justify-content: space-around;
-    /* flex-direction: column; */
   }
 `;
 

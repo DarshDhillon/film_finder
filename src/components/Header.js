@@ -33,7 +33,6 @@ const HeaderContainer = styled.div`
   justify-content: space-around;
   flex-direction: column;
   padding: 2rem 0rem;
-  /* position: sticky; */
   top: 0;
 `;
 
@@ -65,9 +64,6 @@ const Title = styled.h1`
   @media screen and (max-width: 768px) {
     font-size: 2.5rem;
   }
-
-  /* -webkit-text-stroke-width: 0.1px;
-  -webkit-text-stroke-color: lightgrey; */
 `;
 
 const ProjectorIcon = styled(GiFilmProjector)`

@@ -41,7 +41,6 @@ const SearchInput = () => {
 export default SearchInput;
 
 const SearchForm = styled.form`
-  /* background-color: orange; */
   width: 100%;
   display: flex;
   justify-content: center;

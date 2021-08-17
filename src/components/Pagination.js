@@ -11,9 +11,6 @@ const Pagination = ({ numberOfPages, handlePageClick }) => {
         breakClassName={'break-me'}
         pageCount={numberOfPages}
         marginPagesDisplayed={2}
-        // initialPage={0}
-        // disableInitialCallback={true}
-        // forcePage={0}
         pageRangeDisplayed={2}
         onPageChange={handlePageClick}
         containerClassName={'pagination'}

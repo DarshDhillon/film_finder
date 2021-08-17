@@ -27,7 +27,6 @@ const SelectedFilmGallery = () => {
 export default SelectedFilmGallery;
 
 const ImagesContainer = styled.div`
-  /* border: 1px solid red; */
   width: 60%;
   margin: 0 auto;
   padding-bottom: 1rem;

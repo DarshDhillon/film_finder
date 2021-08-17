@@ -44,8 +44,6 @@ const TopRated = () => {
 export default TopRated;
 
 const FilmsContainer = styled.div`
-  /* border: 1px solid red; */
-  /* height: 100vh; */
   width: 100%;
   background-color: transparent;
   padding: 2rem 0rem;

@@ -20,8 +20,10 @@ const SelectedFilmActors = () => {
                   : `https://image.tmdb.org/t/p/original/${actor.profile_path}`
               }
             />
-            <FilmActorName>{actor.name}</FilmActorName>
-            <FilmActorCharacterName>{actor.character}</FilmActorCharacterName>
+            <FilmActorName>{actor.name.slice(0, 25)}</FilmActorName>
+            <FilmActorCharacterName>
+              {actor.character.slice(0, 25)}
+            </FilmActorCharacterName>
           </FilmActorCard>
         ))}
       </FilmActorsWrapper>
@@ -32,12 +34,10 @@ const SelectedFilmActors = () => {
 export default SelectedFilmActors;
 
 const FilmActorsContainer = styled.div`
-  /* border: 1px solid red; */
   padding: 2rem;
 `;
 
 const FilmActorsWrapper = styled.div`
-  /* border: 1px solid blue; */
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -45,9 +45,7 @@ const FilmActorsWrapper = styled.div`
 `;
 
 const FilmActorCard = styled.div`
-  /* border: 1px solid orange; */
   display: flex;
-  /* flex-wrap: wrap; */
   flex-direction: column;
   align-items: center;
   min-width: 250px;
