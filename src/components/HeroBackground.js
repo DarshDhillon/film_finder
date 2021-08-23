@@ -34,11 +34,14 @@ export default HeroBackground;
 
 const Background = styled.div`
   min-height: 100vh;
-  width: 100%;
+  /* width: 100%; */
   background-image: ${({ $image }) => $image && `url(${$image})`};
-  background-repeat: no-repeat;
   background-position: center center;
-  background-size: 100% 100%;
+  background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-color: #000;
 `;
